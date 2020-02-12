@@ -1,0 +1,5 @@
+{
+    "python.pythonPath": "/home/alejandro/.local/share/virtualenvs/demoDjango2-Y_Rzhfs5/bin/python",
+    "python.linting.flake8Enabled": true,
+    "python.linting.enabled": true
+}
