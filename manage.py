@@ -7,7 +7,13 @@ from dotenv import load_dotenv
 
 def main():
     BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-    load_dotenv(os.path.join(BASE_DIR, '.env'))
+    ENV_PATH = os.path.join(BASE_DIR, '.env')
+
+    if os.path.exists(ENV_PATH):
+        load_dotenv(ENV_PATH)
+    else:
+        print("cp <root>/.exmple.env <root>/.env")
+        sys.exit()
 
     os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'demoDjango2.settings')
     try:
