@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -9,24 +10,34 @@
         <a href="/libro/new/">Crear libro</a>
 
         {% for author in authors %}
-            <p>{{ author }}</p>
-            <table>
-                <tr>
-                    <th>Title</th>
-                    <th>ISBN</th>
-                    <th>Editorial</th>
-                    <th>✏️</th>
-                </tr>
-                {% for book in author.book_set.all %}
-                <tr>
-                    <td>{{book.title}}</td>
-                    <td>{{book.ISBN}}</td>
-                    <td>{{book.editorial}}</td>
-                    <td><a href="/libro/edit/{{ book.id }}/">✏️</a></td>
-                </tr>
-                {% endfor %}
-            </table>
-            <br/>
+        <p>{{ author }}</p>
+        <table>
+            <tr>
+                <th>Title</th>
+                <th>ISBN</th>
+                <th>Editorial</th>
+                <th>✏️</th>
+                <th>🗑️</th>
+            </tr>
+            {% for book in author.book_set.all %}
+            <tr>
+                <td>{{book.title}}</td>
+                <td>{{book.ISBN}}</td>
+                <td>{{book.editorial}}</td>
+                <td><a href="/libro/edit/{{ book.id }}/">✏️</a></td>
+                <td>
+                    <button class="delete-btn" data-id="{{ book.id }}">
+                        🗑️
+                    </button>
+                </td>
+            </tr>
+            {% endfor %}
+        </table>
+
+        <br />
         {% endfor %}
+
+        {% csrf_token %}
+        <script src="{% static 'js/bookList.js' %}"></script>
     </body>
 </html>

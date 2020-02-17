@@ -1,6 +1,7 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.views import View
 from django.views.generic.edit import FormView, UpdateView
+from django.http import JsonResponse
 from libros.models import Author, Book
 from libros.forms import BookForm
 
@@ -44,3 +45,11 @@ class BooksList(View):
 
     def post(self, request):
         return render(request, "bookList.html", context={'authors': []})
+
+
+class BookDelete(View):
+    def post(self, request):
+        book = get_object_or_404(Book, id=request.POST['id'])
+        book.delete()
+
+        return JsonResponse({'success': True})

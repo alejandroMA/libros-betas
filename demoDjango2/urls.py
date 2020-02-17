@@ -24,6 +24,7 @@ urlpatterns = [
     path('', librosViews.BooksList.as_view()),
     path('libro/new/', librosViews.BookRegister.as_view()),
     path('libro/edit/<int:pk>/', librosViews.BookEdit.as_view()),
+    path('libro/delete/', librosViews.BookDelete.as_view()),
 ]
 
 if settings.DEBUG:
