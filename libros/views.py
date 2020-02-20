@@ -4,6 +4,35 @@ from django.views.generic.edit import FormView, UpdateView
 from django.http import JsonResponse
 from libros.models import Author, Book
 from libros.forms import BookForm
+from rest_framework.views import APIView
+from rest_framework.response import Response
+from rest_framework.generics import ListCreateAPIView
+# from rest_framework.exceptions import APIException, ValidationError
+from rest_framework.permissions import IsAuthenticated
+from libros.serializers import AuthorSerilizer, BookSerializer
+
+
+class ListAuthorApi(APIView):
+    permission_classes = (IsAuthenticated,)
+
+    def get(self, request):
+        authors = Author.objects.all()
+        serializer = AuthorSerilizer(authors, many=True)
+
+        # raise Exception('error')
+        # raise ValidationError('hiciste algo mal')
+
+        return Response(serializer.data)
+
+
+class AuthorApi(ListCreateAPIView):
+    queryset = Author.objects.all()
+    serializer_class = AuthorSerilizer
+
+
+class BookApi(ListCreateAPIView):
+    queryset = Book.objects.all()
+    serializer_class = BookSerializer
 
 
 class BookRegister(FormView):

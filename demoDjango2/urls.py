@@ -21,10 +21,21 @@ from libros import views as librosViews
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('api-auth/', include('rest_framework.urls')),
+
     path('', librosViews.BooksList.as_view()),
     path('libro/new/', librosViews.BookRegister.as_view()),
     path('libro/edit/<int:pk>/', librosViews.BookEdit.as_view()),
     path('libro/delete/', librosViews.BookDelete.as_view()),
+
+    path('api/author/', librosViews.AuthorApi.as_view(), name='api author'),
+    path('api/book/', librosViews.BookApi.as_view(), name='api book'),
+
+    path(
+        'api2/author/',
+        librosViews.ListAuthorApi.as_view(),
+        name='api2 author'
+    ),
 ]
 
 if settings.DEBUG:
